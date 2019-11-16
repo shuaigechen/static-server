@@ -80,7 +80,7 @@ var server = http.createServer(function (request, response) {
             const userArray = JSON.parse(fs.readFileSync("./db/users.json"));
             //声明一个user等于，在所有id里找（user=user.id变成字符串，=userId）
             const user = userArray.find(user => user.id === userId);
-            //如果 用户存在，替换home文件
+            //如果 用户存在替换home文件
             const homeHtml = fs.readFileSync("./public/home.html").toString();
             let string = ''
             if (user) {
