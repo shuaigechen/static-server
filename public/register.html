@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>注册</title>
+</head>
+
+<body>
+    <form id="registerForm">
+        <div>
+            <label>用户名<input type="text" name="name"></label>
+        </div>
+        <div>
+            <label>密码<input type="password" name="password"></label>
+        </div>
+        <div>
+            <button type="submit">注册</button>
+        </div>
+    </form>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+        const $form = $('#registerForm')/*获取表单，监听submit事件，当它被submit时，获取到这个事件e*/
+        $form.on('submit', (e) => {
+            e.preventDefault() /*阻止默认事件*/
+            /*name 等于 在form里找，input里面，name=name。然后获取它的值*/
+            const name = $form.find('input[name=name]').val()
+            const password = $form.find('input[name=password]').val()
+            console.log(name, password)
+            //提交数据，使用ajax请求
+            $.ajax({
+                //get 请求会把数据放在url上，换成post请求
+                method: 'POST',
+                //新建一个url
+                url: '/register',
+                //告诉服务器，数据是JSON字符串
+                contentType: 'text/json; charset=UTF-8',
+                //数据是，发送一个json，
+                data: JSON.stringify({ name, password })
+                //then接收2个函数，第一个函数是成功之后，第二个是失败之后
+            }).then(() => {
+                alert('注册成功')
+                location.href = '/sign_in.html'
+            }, () => { }
+            )
+        })
+    </script>
+</body>
+
+</html>
